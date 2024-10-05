@@ -1,0 +1,24 @@
+{
+    "name": "flamix/b24-lead",
+    "description": "B24 Lead SDK",
+    "homepage": "https://flamix.solutions",
+    "authors": [
+        {
+            "name": "Roman Shkabko",
+            "email": "r.shkabko@flamix.email",
+            "homepage": "http://flamix.software"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "xsuchy09/utm-cookie": "^2",
+        "flamix/conversions": "^1"
+    },
+    "autoload":{
+        "psr-4":{
+            "Flamix\\":"src"
+        }
+    }
+}
