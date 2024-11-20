@@ -4,7 +4,7 @@ Plugin Name: Flamix: Bitrix24 and Contact Form 7 integration
 Plugin URI: https://flamix.solutions/bitrix24/integrations/site/cf7.php
 Description: Bitrix24 and WordPress Contact Form 7 integration
 Author: Roman Shkabko (Flamix)
-Version: 3.2.0
+Version: 3.2.1
 Author URI: https://flamix.info
 License: GPLv2
 */

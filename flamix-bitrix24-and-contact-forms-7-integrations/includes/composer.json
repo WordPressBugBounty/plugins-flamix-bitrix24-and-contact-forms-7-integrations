@@ -3,7 +3,7 @@
   "require": {
     "php": "^7.4",
     "flamix/plugin-helpers": "dev-main",
-    "flamix/b24-lead": "dev-master"
+    "flamix/b24-lead": "^1"
   },
   "autoload": {
     "psr-4": {"FlamixLocal\\CF7\\": "local/"}

@@ -90,19 +90,18 @@ class SQL
      * Witch JOBs not send.
      *
      * @param string $success
-     * @param int $block
+     * @param int $block Block 60 sec!
      * @param int $limit
      * @return string
      */
     public function notSending(string $success, int $block = 60, int $limit = 20): string
     {
-        $time = time() + $block; // 60 seconds block
         $sql = "SELECT id, order_id, UNIX_TIMESTAMP(reserved_at) as reservet_at_timestamp
                     FROM {$this->getTableName()}
-                        WHERE order_job_status != '%s' AND (reserved_at IS NULL OR UNIX_TIMESTAMP(reserved_at) < '%d')
+                        WHERE order_job_status != '%s' AND (reserved_at IS NULL OR UNIX_TIMESTAMP(reserved_at) < UNIX_TIMESTAMP(NOW()) + %d)
                             LIMIT {$limit};";
 
-        return $this->prepare($sql, $success, $time);
+        return $this->prepare($sql, $success, $block);
     }
 
     /**
@@ -164,7 +163,7 @@ class SQL
                     break;
 
                 case 'now':
-                    $value = "{$key}='" . date('Y-m-d H:i:s') . "'";
+                    $value = "{$key}=NOW()";
                     break;
 
                 default:
