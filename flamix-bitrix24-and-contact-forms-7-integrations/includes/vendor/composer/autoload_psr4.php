@@ -13,6 +13,6 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Flamix\\Plugin\\' => array($vendorDir . '/flamix/plugin-helpers/src'),
-    'Flamix\\' => array($vendorDir . '/flamix/conversions/src', $vendorDir . '/flamix/b24-lead/src'),
+    'Flamix\\' => array($vendorDir . '/flamix/b24-lead/src', $vendorDir . '/flamix/conversions/src'),
     'FlamixLocal\\CF7\\' => array($baseDir . '/local'),
 );

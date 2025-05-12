@@ -71,8 +71,8 @@ class ComposerStaticInit0d1dda72863ab763c8fbdab832392b7a
         ),
         'Flamix\\' => 
         array (
-            0 => __DIR__ . '/..' . '/flamix/conversions/src',
-            1 => __DIR__ . '/..' . '/flamix/b24-lead/src',
+            0 => __DIR__ . '/..' . '/flamix/b24-lead/src',
+            1 => __DIR__ . '/..' . '/flamix/conversions/src',
         ),
         'FlamixLocal\\CF7\\' => 
         array (

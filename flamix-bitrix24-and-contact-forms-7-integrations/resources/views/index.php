@@ -23,7 +23,7 @@ echo Markup::adminMessage(__('Install the Lead interceptor <a href="' . Setting:
                 'value' => Setting::getOption('lead_api'),
                 'label' => __('Flamix Plugin Secret Key', FLAMIX_BITRIX24_CF7_CODE),
                 'placeholder' => 'xxxxxx.....xxxxx',
-                'description' => __('Your Flamix Secret KEY (Do not confuse with License Key). Read FAQ <a href="https://flamix.solutions/about/contacts.php#FAQ" target="_blank">Where can I get the secret integration key</a>', FLAMIX_BITRIX24_CF7_CODE),
+                'description' => __('Your Flamix Secret KEY (Do not confuse with License Key). Read FAQ <a href="https://en.flamix.solutions/faq/en-secret-integration-key/" target="_blank">Where can I get the secret integration key</a>', FLAMIX_BITRIX24_CF7_CODE),
             ]); ?>
 
             <?php Markup::markup_input(Setting::getOptionName('lead_backup_email'), [

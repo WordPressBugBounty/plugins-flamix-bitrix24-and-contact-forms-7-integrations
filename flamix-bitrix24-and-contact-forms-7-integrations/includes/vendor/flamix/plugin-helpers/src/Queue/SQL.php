@@ -8,8 +8,8 @@ class SQL
     private $prepareClosure;
 
     /**
-     * @param string $table Table name
-     * @param callable $prepareClosure Functions to clear SQL injections (->prepare($sql))
+     * @param  string  $table  Table name
+     * @param  callable  $prepareClosure  Functions to clear SQL injections (->prepare($sql))
      */
     public function __construct(string $table = 'fx_flamix_order_jobs', callable $prepareClosure)
     {
@@ -72,9 +72,9 @@ class SQL
     /**
      * Select Queue data.
      *
-     * @param array $where
-     * @param array $fields
-     * @param int|null $limit
+     * @param  array  $where
+     * @param  array  $fields
+     * @param  int|null  $limit
      * @return string
      */
     public function select(array $where = [], array $fields = [], ?int $limit = null): string
@@ -89,26 +89,27 @@ class SQL
     /**
      * Witch JOBs not send.
      *
-     * @param string $success
-     * @param int $block Block 60 sec!
-     * @param int $limit
+     * @param  string  $success
+     * @param  int  $block  Block 60 sec!
+     * @param  int  $limit
      * @return string
      */
     public function notSending(string $success, int $block = 60, int $limit = 20): string
     {
         $sql = "SELECT id, order_id, UNIX_TIMESTAMP(reserved_at) as reservet_at_timestamp
                     FROM {$this->getTableName()}
-                        WHERE order_job_status != '%s' AND (reserved_at IS NULL OR UNIX_TIMESTAMP(reserved_at) < UNIX_TIMESTAMP(NOW()) + %d)
-                            LIMIT {$limit};";
+                        WHERE order_job_status != '%s' AND (reserved_at IS NULL OR reserved_at < NOW() - INTERVAL %d SECOND)
+                            ORDER BY id DESC
+                                LIMIT %d;";
 
-        return $this->prepare($sql, $success, $block);
+        return $this->prepare($sql, $success, $block, $limit);
     }
 
     /**
      * Insert JOB to Queue.
      *
-     * @param int $order_id
-     * @param string $order_job_status
+     * @param  int  $order_id
+     * @param  string  $order_job_status
      * @return string
      */
     public function insert(int $order_id, string $order_job_status): string
@@ -122,8 +123,8 @@ class SQL
     /**
      * Update Queue JOB.
      *
-     * @param array $fields
-     * @param array $where
+     * @param  array  $fields
+     * @param  array  $where
      * @return string
      */
     public function update(array $fields, array $where): string
@@ -134,9 +135,25 @@ class SQL
     }
 
     /**
+     * Massive update Queue JOB.
+     *
+     * @param  array  $fields  What to update, example: ['order_job_status' => 'NEW']
+     * @param  string  $column  Column name to filter, example: 'order_id'
+     * @param  array  $where_in  Values to filter, example: [1, 2, 3]
+     * @return string
+     */
+    public function updateWhereIn(array $fields, string $column, array $where_in): string
+    {
+        $fields = $this->arrayToSQL($fields);
+        $where = implode(',', array_map(fn($v) => is_numeric($v) ? $v : "'".addslashes($v)."'", $where_in));
+
+        return "UPDATE {$this->getTableName()} SET {$fields} WHERE {$column} IN ({$where});";
+    }
+
+    /**
      * Delete JOB from DB.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return string
      */
     public function clear(int $id = 0): string
@@ -148,13 +165,14 @@ class SQL
     /**
      * Secure convert ['key' => 'value'] to key='value'.
      *
-     * @param array $where
+     * @param  array  $where
      * @return string
      */
     private function arrayToSQL(array $where): string
     {
-        if (empty($where))
+        if (empty($where)) {
             return '1=1';
+        }
 
         foreach ($where as $key => &$value)
             switch ($value) {

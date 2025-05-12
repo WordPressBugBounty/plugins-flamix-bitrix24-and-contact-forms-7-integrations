@@ -4,8 +4,8 @@ Contributors: flamix
 Tags: bitrix24,b24,lead,contact,form,7,cf7,integration,crm,ecommerce,bitrix,битрикс,битрикс24,б24,интеграция
 Donate link: https://flamix.solutions/bitrix24/integrations/site/cf7.php#price
 Requires at least: 5.0
-Tested up to: 6.6
-Stable tag: 3.2.1
+Tested up to: 6.8
+Stable tag: 3.3.0
 Requires PHP: 7.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
